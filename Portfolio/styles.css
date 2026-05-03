@@ -1221,6 +1221,26 @@ img { display: block; max-width: 100%; }
 .ru { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
 .h-rule { height: 1px; background: var(--rule); width: 100%; }
 
+/* ============ ANIMATED GRADIENT (animate-ui port) ============ */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.now-card.glow,
+.module.feature,
+.sticker.grad,
+.about-portrait,
+.nav-pill {
+  background-size: 400% 400% !important;
+  animation: gradientShift 5s ease-in-out infinite;
+}
+.hero-title .grad {
+  background-size: 400% 400% !important;
+  animation: heroIn 1.2s cubic-bezier(.6,.05,.2,1) both, gradientShift 5s ease-in-out infinite;
+}
+
 /* ============================================================
    MOBILE — iPhone / smartphone (≤ 760 px)
    ============================================================ */
