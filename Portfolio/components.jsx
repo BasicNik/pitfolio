@@ -105,11 +105,11 @@ function StatusBar({ resume }) {
   return (
     <div className="statusbar">
       <span><b>{handle}</b> / portfolio_v07</span>
-      <span>{tz} · <b>{fmt(now)}</b></span>
+      <span className="sb-hide-mobile">{tz} · <b>{fmt(now)}</b></span>
       <span className="sb-spacer" />
       <span className="sb-blink">● LIVE</span>
-      <span>STATUS: <b style={{color:"#5fff8e"}}>OPEN TO WORK</b></span>
-      <span>RIGHT-CLICK FOR MENU</span>
+      <span className="sb-hide-mobile">STATUS: <b style={{color:"#5fff8e"}}>OPEN TO WORK</b></span>
+      <span className="sb-hide-mobile">RIGHT-CLICK FOR MENU</span>
     </div>
   );
 }
@@ -127,7 +127,17 @@ function Navbar({ route, navigate, resume }) {
   const refs = useRef({});
   const [pill, setPill] = useState({ x: 0, w: 0, ready: false });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef(null);
+
+  // Close mobile sheet on route change or Escape
+  useEffect(() => { setMobileOpen(false); }, [route]);
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setMobileOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
 
   const positionPill = useCallback((id) => {
     const el = refs.current[id];
@@ -154,71 +164,107 @@ function Navbar({ route, navigate, resume }) {
   const companies = (resume?.experience || []);
 
   return (
-    <div className="nav-wrap">
-      <nav className="nav glass" aria-label="Primary">
-        <button className="nav-brand" onClick={() => navigate("")}>
-          <img src="assets/Nr_Logo_png.png" alt="NR logo" className="nav-logo" />
-        </button>
-        <div className="nav-items" ref={wrap}>
-          <span
-            className="nav-pill"
-            style={{
-              transform: `translateX(${pill.x}px)`,
-              width: pill.w,
-              opacity: pill.ready ? 1 : 0,
-            }}
-            aria-hidden="true"
-          />
-          {NAV.map((n) => (
-            <button
-              key={n.id || "idx"}
-              ref={(el) => (refs.current[n.id] = el)}
-              className={"nav-item" + (route === n.id ? " active" : "")}
-              onClick={() => navigate(n.id)}
-              onMouseEnter={() => { positionPill(n.id); if (n.hasMenu) openMenu(); else closeMenuSoon(); }}
-              onMouseLeave={() => { positionPill(route); if (n.hasMenu) closeMenuSoon(); }}
-            >
-              {n.label}
-              {n.hasMenu && <span className="nav-caret">▾</span>}
-            </button>
-          ))}
-        </div>
-        <button className="nav-cta" onClick={() => navigate("contact")}>
-          Book a call
-        </button>
-      </nav>
-
-      {/* Mega-menu — companies only */}
-      <div
-        className={"nav-mega glass" + (menuOpen ? " open" : "")}
-        onMouseEnter={openMenu}
-        onMouseLeave={closeMenuSoon}
-      >
-        <div className="nav-mega-head">
-          <span className="ru">EXPERIENCE · COMPANIES</span>
-          <button className="nav-mega-all" onClick={() => { setMenuOpen(false); navigate("work"); }}>
-            View all work →
+    <React.Fragment>
+      <div className="nav-wrap">
+        <nav className="nav glass" aria-label="Primary">
+          <button className="nav-brand" onClick={() => navigate("")}>
+            <img src="assets/Nr_Logo_png.png" alt="NR logo" className="nav-logo" />
           </button>
-        </div>
-        <div className="nav-mega-grid">
-          {companies.map((e, i) => (
-            <button
-              key={i}
-              className="nav-mega-item"
-              onClick={() => { setMenuOpen(false); navigate("company/" + i); }}
-            >
-              <div className="nmi-num">0{i+1}</div>
-              <div className="nmi-body">
-                <div className="nmi-company">{e.company}</div>
-                <div className="nmi-role">{e.role}{e.client ? " · " + e.client : ""}</div>
-                <div className="nmi-duration">{e.duration}</div>
-              </div>
-              <div className="nmi-arrow">↗</div>
+          <div className="nav-items" ref={wrap}>
+            <span
+              className="nav-pill"
+              style={{
+                transform: `translateX(${pill.x}px)`,
+                width: pill.w,
+                opacity: pill.ready ? 1 : 0,
+              }}
+              aria-hidden="true"
+            />
+            {NAV.map((n) => (
+              <button
+                key={n.id || "idx"}
+                ref={(el) => (refs.current[n.id] = el)}
+                className={"nav-item" + (route === n.id ? " active" : "")}
+                onClick={() => navigate(n.id)}
+                onMouseEnter={() => { positionPill(n.id); if (n.hasMenu) openMenu(); else closeMenuSoon(); }}
+                onMouseLeave={() => { positionPill(route); if (n.hasMenu) closeMenuSoon(); }}
+              >
+                {n.label}
+                {n.hasMenu && <span className="nav-caret">▾</span>}
+              </button>
+            ))}
+          </div>
+          <button className="nav-cta" onClick={() => navigate("contact")}>
+            Book a call
+          </button>
+          {/* Hamburger — visible only on mobile */}
+          <button
+            className={"nav-hamburger" + (mobileOpen ? " open" : "")}
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+          >
+            <span /><span /><span />
+          </button>
+        </nav>
+
+        {/* Mega-menu — companies only */}
+        <div
+          className={"nav-mega glass" + (menuOpen ? " open" : "")}
+          onMouseEnter={openMenu}
+          onMouseLeave={closeMenuSoon}
+        >
+          <div className="nav-mega-head">
+            <span className="ru">EXPERIENCE · COMPANIES</span>
+            <button className="nav-mega-all" onClick={() => { setMenuOpen(false); navigate("work"); }}>
+              View all work →
             </button>
-          ))}
+          </div>
+          <div className="nav-mega-grid">
+            {companies.map((e, i) => (
+              <button
+                key={i}
+                className="nav-mega-item"
+                onClick={() => { setMenuOpen(false); navigate("company/" + i); }}
+              >
+                <div className="nmi-num">0{i+1}</div>
+                <div className="nmi-body">
+                  <div className="nmi-company">{e.company}</div>
+                  <div className="nmi-role">{e.role}{e.client ? " · " + e.client : ""}</div>
+                  <div className="nmi-duration">{e.duration}</div>
+                </div>
+                <div className="nmi-arrow">↗</div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Mobile full-screen nav sheet */}
+      <div className={"nav-mobile-sheet" + (mobileOpen ? " open" : "")} aria-hidden={!mobileOpen}>
+        {NAV.map((n) => (
+          <button
+            key={n.id || "home"}
+            className={"nav-mobile-item" + (route === n.id ? " active" : "")}
+            onClick={() => { navigate(n.id); setMobileOpen(false); }}
+          >
+            {n.label}
+            <span className="mob-arrow">↗</span>
+          </button>
+        ))}
+        <button
+          className="nav-mobile-cta"
+          onClick={() => { navigate("contact"); setMobileOpen(false); }}
+        >
+          Book a call
+          <span style={{
+            width: 22, height: 22, borderRadius: "50%",
+            background: "var(--bg)", color: "var(--ink)",
+            display: "grid", placeItems: "center", fontSize: 14
+          }}>↗</span>
+        </button>
+      </div>
+    </React.Fragment>
   );
 }
 

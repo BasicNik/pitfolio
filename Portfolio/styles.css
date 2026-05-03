@@ -1220,3 +1220,135 @@ img { display: block; max-width: 100%; }
 /* utilities */
 .ru { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
 .h-rule { height: 1px; background: var(--rule); width: 100%; }
+
+/* ============================================================
+   MOBILE — iPhone / smartphone (≤ 760 px)
+   ============================================================ */
+
+/* Global tap highlight removal */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* ── Reusable grid helpers (used by pages.jsx) ── */
+.company-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+}
+.achievement-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+
+/* ── Mobile hamburger button ── */
+.nav-hamburger {
+  display: none;
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 0;
+  width: 42px; height: 42px; padding: 0;
+  border-radius: 100px;
+  border: 1px solid var(--rule-strong);
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block; width: 18px; height: 1.5px;
+  background: var(--ink);
+  transition: transform .25s ease, opacity .25s ease;
+}
+.nav-hamburger span:nth-child(2) { margin: 5px 0; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── Mobile full-screen nav sheet ── */
+.nav-mobile-sheet {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 998;
+  padding: 110px 28px 48px;
+  background: rgba(10, 9, 8, 0.97);
+  backdrop-filter: blur(32px) saturate(120%);
+  -webkit-backdrop-filter: blur(32px) saturate(120%);
+  transform: translateY(-100%);
+  transition: transform .38s cubic-bezier(.6,.05,.2,1);
+  pointer-events: none;
+  overflow-y: auto;
+}
+.nav-mobile-sheet.open {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.nav-mobile-item {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 36px; font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ink-2);
+  transition: color .2s;
+  text-align: left;
+}
+.nav-mobile-item.active { color: var(--ink); }
+.nav-mobile-item .mob-arrow { font-size: 22px; transition: transform .2s; }
+.nav-mobile-item:hover .mob-arrow { transform: translate(4px, -4px); }
+.nav-mobile-cta {
+  margin-top: 32px;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px; border-radius: 100px;
+  background: var(--ink); color: var(--bg);
+  font-family: var(--mono); font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  /* Nav — swap full bar for hamburger */
+  .nav-items, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  /* Keep the brand logo a bit smaller */
+  .nav-logo { height: 32px; width: 32px; }
+
+  /* Status bar — hide non-essential items */
+  .sb-hide-mobile { display: none !important; }
+
+  /* Cursor — not applicable on touch */
+  button, a { cursor: auto; }
+  .work-card, .channel { cursor: auto; }
+
+  /* Hero */
+  .hero { padding-top: 120px; padding-bottom: 60px; }
+  .hero-meta { margin-top: 48px; }
+  .hero-stat { padding: 14px 10px; }
+  .sticker, .sticker.spin, .sticker.grad { display: none !important; }
+
+  /* Marquee — fix negative margin (shell is 20px, not 40px) */
+  .marquee { margin: 32px -20px; }
+
+  /* Section */
+  .section-head { margin-bottom: 48px; }
+
+  /* Work hero */
+  .work-hero { padding-top: 120px; padding-bottom: 60px; }
+  .work-hero .wh-title { font-size: clamp(40px, 10vw, 180px); }
+
+  /* Work grid helpers */
+  .company-grid { grid-template-columns: 1fr; }
+  .achievement-grid { grid-template-columns: 1fr; }
+
+  /* About */
+  .about-grid { padding-top: 120px; }
+  .about-portrait { aspect-ratio: 16/9; max-height: 220px; }
+
+  /* Contact */
+  .contact-grid { padding-top: 120px; }
+  .contact-grid .lead { font-size: clamp(36px, 9vw, 140px); }
+  .contact-cta { padding: 80px 0 60px; }
+  .contact-cta .big { font-size: clamp(36px, 10vw, 140px); }
+
+  /* Blog — featured post hero title override (inline style uses 56px) */
+  .blog-featured-title { font-size: 28px !important; }
+
+  /* Module — ensure span-12 modules don't overflow on phones */
+  .module { padding: 20px; }
+  .module .mod-title { font-size: clamp(22px, 6vw, 40px); }
+}
+
+@media (max-width: 480px) {
+  /* Footer — single column on very narrow screens */
+  .footer .col.span-3 { grid-column: span 12; }
+}

@@ -236,7 +236,7 @@ function WorkPage({ navigate, resume }) {
         <div className="module glass-card span-12">
           <div className="mod-tag">COMPANIES · WHERE I'VE BUILT</div>
           <h3 className="mod-title" style={{marginBottom: 18}}>Roles &amp; clients.</h3>
-          <div style={{display:"grid", gridTemplateColumns:"repeat(2, 1fr)", gap: 14}}>
+          <div className="company-grid">
             {exp.map((e, i) => (
               <button key={i} className="company-row glass-card sm"
                       onClick={() => navigate("company/" + i)}>
@@ -277,8 +277,7 @@ function WorkPage({ navigate, resume }) {
           <div className="module glass-card span-12">
             <div className="mod-tag">RECOGNITION</div>
             <h3 className="mod-title" style={{marginBottom: 18}}>Things on the wall.</h3>
-            <ul style={{listStyle:"none", padding:0, margin:0,
-                        display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap: 16}}>
+            <ul className="achievement-grid">
               {resume.achievements.map((a, i) => (
                 <li key={i} style={{
                   borderTop: "2px solid var(--ember)", paddingTop: 12,
@@ -530,7 +529,7 @@ function BlogPage({ navigate, resume }) {
       <section className="work-modules">
         <div className="module glass-card feature span-12 tall">
           <div className="mod-tag" style={{color:"rgba(10,9,8,.7)"}}>FEATURED · {BLOG_POSTS[0].tag}</div>
-          <h3 className="mod-title" style={{fontSize: 56, color: "var(--bg)"}}>{BLOG_POSTS[0].title}</h3>
+          <h3 className="mod-title blog-featured-title" style={{fontSize: 56, color: "var(--bg)"}}>{BLOG_POSTS[0].title}</h3>
           <p className="mod-body" style={{fontSize: 16, maxWidth: "52ch", color:"rgba(10,9,8,.78)"}}>
             {BLOG_POSTS[0].excerpt}
           </p>
