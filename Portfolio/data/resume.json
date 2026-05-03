@@ -1,0 +1,108 @@
+{
+    "name": "Nikhil Rajput",
+    "title": "Backend Developer",
+    "contact": {
+        "email": "basicnik1798@gmail.com",
+        "phone": "+91 9557920708",
+        "links": {
+            "github": "https://github.com/BasicNik",
+            "linkedin": "https://linkedin.com/in/nikhil-rajput-basic"
+        }
+    },
+    "summary": "Backend Developer with 2+ years of experience designing and optimizing server-side systems using Java, Spring Boot, and Hibernate. Strong in REST APIs, SQL, SDLC, and data structures with experience in financial and enterprise systems.",
+    "experience": [
+        {
+            "company": "TCS",
+            "role": "Software Developer",
+            "client": "State Bank of India (Trade and Finance)",
+            "duration": "Jul 2024 \u2013 Present",
+            "highlights": [
+                "Built 15+ REST APIs improving response time by 30%",
+                "Refactored legacy Java modules improving performance by 25%",
+                "Reduced batch execution time from 30 minutes to 5 minutes",
+                "Improved transactional integrity reducing downtime by 25%"
+            ]
+        },
+        {
+            "company": "BasketHunt",
+            "role": "Junior Web Developer",
+            "duration": "Jul 2023 \u2013 Sep 2023",
+            "highlights": [
+                "Reduced mobile load time by 35%",
+                "Improved SEO increasing organic traffic by 50%"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "SpicyBits",
+            "description": "AI-powered news platform with ChatGPT API, Firebase Auth, Firestore, and moderation dashboard",
+            "link": "https://spicybits.space/",
+            "duration": "Mar 2025 \u2013 Present"
+        },
+        {
+            "name": "TaskPilot",
+            "description": "Real-time collaborative task manager using React, Firebase Auth, and Firestore",
+            "link": "https://taskpilot-brown.vercel.app/",
+            "duration": "May 2025 \u2013 Present"
+        }
+    ],
+    "skills": {
+        "primary": [
+            "Java",
+            "Spring Boot",
+            "REST APIs",
+            "Multithreading",
+            "React"
+        ],
+        "working": [
+            "Node.js",
+            "TypeScript",
+            "Firebase",
+            "Docker",
+            "Jenkins",
+            "AWS (EC2, S3, IAM)"
+        ],
+        "familiar": [
+            "Python",
+            "C++",
+            "Next.js"
+        ],
+        "databases": [
+            "Oracle SQL",
+            "MySQL",
+            "MongoDB"
+        ],
+        "tools": [
+            "Git",
+            "Linux/Unix",
+            "Jenkins"
+        ]
+    },
+    "education": [
+        {
+            "degree": "B.Tech in Computer Science and Engineering",
+            "institution": "Graphic Era Deemed to be University",
+            "location": "Dehradun, Uttarakhand",
+            "duration": "2020 \u2013 2024"
+        },
+        {
+            "institution": "Scholars Home Sr. Sec School",
+            "stream": "Science with Computer Science",
+            "location": "Dehradun, Uttarakhand",
+            "duration": "2014 \u2013 2020"
+        }
+    ],
+    "certifications": [
+        {
+            "name": "GitHub Foundations (CI/CD & DevOps)",
+            "issuer": "GitHub via Credly",
+            "link": "https://www.credly.com/badges/eb660db3-0936-4151-a04b-abc43d48aec6/public_url"
+        }
+    ],
+    "achievements": [
+        "Best Team Award \u2013 TCS (Trade Finance APIs improvements)",
+        "Employee of the Month \u2013 MT to MX modernization",
+        "Led a team of 6 engineers delivering backend features end-to-end"
+    ]
+}
