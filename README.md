@@ -1,5 +1,4 @@
-# Pitfolio
-
+# Portfolio
 A modern, single-page developer portfolio built with **React 18 via CDN** and styled with a custom liquid-glass brutalist aesthetic. This project is intentionally lightweight: there is **no bundler, no npm dependency tree, and no build step** required to run the site.
 
 ---
