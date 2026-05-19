@@ -306,67 +306,6 @@ function usePageEntry(ref) {
     return () => clearTimeout(id);
   }, []);
 }
-function useReveal() { useEffect(() => {}, []); }
-
-// ---------- ANIMATED TEXT (variable-font wave on hover) ----------
-function FlexText({ children, className = "" }) {
-  const text = String(children);
-  return (
-    <span className={"flex-text " + className} aria-label={text}>
-      {text.split("").map((ch, i) => (
-        <span
-          key={i}
-          className="flex-letter"
-          style={{ "--i": i }}
-          aria-hidden="true"
-        >{ch === " " ? "\u00A0" : ch}</span>
-      ))}
-    </span>
-  );
-}
-
-// ---------- SCRAMBLE TEXT ----------
-function ScrambleText({ children, duration = 800, className = "" }) {
-  const ref = useRef(null);
-  const final = String(children);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const chars = "!<>-_\\/[]{}—=+*^?#________";
-    let frame = 0;
-    const total = Math.ceil(duration / 40);
-    const queue = final.split("").map((c, i) => ({
-      from: chars[Math.floor(Math.random() * chars.length)],
-      to: c, start: Math.floor(Math.random() * total / 2),
-      end: Math.floor(total / 2 + Math.random() * total / 2),
-    }));
-    const id = setInterval(() => {
-      let out = "";
-      let done = 0;
-      queue.forEach((q) => {
-        if (frame >= q.end) { out += q.to; done++; }
-        else if (frame >= q.start) {
-          out += chars[Math.floor(Math.random() * chars.length)];
-        } else out += q.from;
-      });
-      el.textContent = out;
-      if (done === queue.length) clearInterval(id);
-      frame++;
-    }, 40);
-    return () => clearInterval(id);
-  }, [final, duration]);
-  return <span ref={ref} className={className}>{final}</span>;
-}
-
-// ---------- WORK PREVIEW (gradient swatch) ----------
-function PreviewSwatch({ a, b, c, label }) {
-  const grad = `linear-gradient(135deg, ${a} 0%, ${b} 50%, ${c} 100%)`;
-  return (
-    <div className="preview-fill" style={{ background: grad }}>
-      <span>{label}</span>
-    </div>
-  );
-}
-
 // ---------- WORK CARD (liquid glass) ----------
 function WorkCard({ idx, title, tags, year, role, onOpen }) {
   const cardRef = useRef(null);
@@ -571,6 +510,5 @@ function PageSidebar({ route }) {
 Object.assign(window, {
   useHashRoute,
   AmbientBlobs, CursorBlob, Grain, StatusBar, Navbar, GridLines,
-  Marquee, useReveal, usePageEntry, PreviewSwatch, WorkCard,
-  FlexText, ScrambleText, ContextMenu, useShortcuts, PageSidebar,
+  Marquee, usePageEntry, WorkCard, ContextMenu, useShortcuts, PageSidebar,
 });

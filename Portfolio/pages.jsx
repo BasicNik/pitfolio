@@ -37,7 +37,6 @@ function projectsFromResume(resume) {
 
 // ---------- HOME ----------
 function HomePage({ navigate, resume }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const projects = projectsFromResume(resume);
@@ -115,7 +114,7 @@ function HomePage({ navigate, resume }) {
           {projects.map((p) => (
             <WorkCard key={p.title} idx={p.idx} title={p.title}
               tags={p.tags.length ? p.tags : ["WEB", "FULLSTACK"]}
-              year={p.year} role={p.role} swatch={p.swatch}
+              year={p.year} role={p.role}
               onOpen={() => navigate("project/" + p.slug)} />
           ))}
         </div>
@@ -128,7 +127,6 @@ function HomePage({ navigate, resume }) {
                 ? inferTags(e.highlights?.join(" ") || "") : ["BACKEND", "JAVA"]}
               year={shortDate(e.duration || "")}
               role={e.client || e.company}
-              swatch={SWATCHES[(projects.length + i) % SWATCHES.length]}
               onOpen={() => navigate("company/" + i)} />
           ))}
         </div>
@@ -219,7 +217,6 @@ function HomePage({ navigate, resume }) {
 
 // ---------- WORK ----------
 function WorkPage({ navigate, resume }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const projects = projectsFromResume(resume);
@@ -305,7 +302,6 @@ function WorkPage({ navigate, resume }) {
 
 // ---------- COMPANY DETAIL ----------
 function CompanyPage({ navigate, resume, idx }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const e = (resume.experience || [])[idx];
@@ -377,7 +373,6 @@ function CompanyPage({ navigate, resume, idx }) {
 
 // ---------- PROJECT DETAIL ----------
 function ProjectPage({ navigate, resume, slug: pslug }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const projects = projectsFromResume(resume);
@@ -491,7 +486,6 @@ const BLOG_POSTS = [
     excerpt: "TaskPilot's Firestore sync layer — what worked, what I'd burn down and rebuild today." },
 ];
 function BlogPage({ navigate, resume }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
 
@@ -672,7 +666,6 @@ const BLOG_CONTENT = {
 };
 
 function BlogPostPage({ navigate, resume, slug: pslug }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const post = BLOG_POSTS.find((p) => p.slug === pslug);
@@ -751,7 +744,6 @@ function BlogPostPage({ navigate, resume, slug: pslug }) {
 
 // ---------- ABOUT ----------
 function AboutPage({ resume }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const edu = resume.education || [];
@@ -800,7 +792,6 @@ function AboutPage({ resume }) {
 
 // ---------- CONTACT ----------
 function ContactPage({ resume }) {
-  useReveal();
   const ref = React.useRef(null);
   usePageEntry(ref);
   const c = resume.contact || {};
