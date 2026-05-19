@@ -465,6 +465,15 @@ function ProjectPage({ navigate, resume, slug: pslug }) {
 
 // ---------- BLOG ----------
 const BLOG_POSTS = [
+  { slug: "event-driven-orders-saga", title: "Event-driven orders without mystery failures",
+    date: "May 10, 2026", read: "10 min", tag: "ARCHITECTURE",
+    excerpt: "How an order workflow got simpler once every state change became explicit, replayable, and boring." },
+  { slug: "postgres-indexes-real-world", title: "Postgres indexes I actually reach for",
+    date: "May 02, 2026", read: "7 min", tag: "DATABASE",
+    excerpt: "A practical tour through composite, partial, and covering indexes from production query plans." },
+  { slug: "deploy-checklists-that-work", title: "The deploy checklist that stopped Friday surprises",
+    date: "Apr 24, 2026", read: "6 min", tag: "DEVOPS",
+    excerpt: "Small release habits that caught config drift, missing migrations, and broken rollbacks before users did." },
   { slug: "rest-apis-30-percent", title: "How I cut REST API response times by 30%",
     date: "Apr 12, 2026", read: "8 min", tag: "PERFORMANCE",
     excerpt: "The TCS Trade-Finance refactor: where the latency was actually hiding, and why nobody had looked there." },
@@ -480,15 +489,6 @@ const BLOG_POSTS = [
   { slug: "react-real-time", title: "Real-time UI without losing your mind",
     date: "Dec 09, 2025", read: "9 min", tag: "REACT",
     excerpt: "TaskPilot's Firestore sync layer — what worked, what I'd burn down and rebuild today." },
-  { slug: "event-driven-orders-saga", title: "Event-driven orders without mystery failures",
-    date: "May 10, 2026", read: "10 min", tag: "ARCHITECTURE",
-    excerpt: "How an order workflow got simpler once every state change became explicit, replayable, and boring." },
-  { slug: "postgres-indexes-real-world", title: "Postgres indexes I actually reach for",
-    date: "May 02, 2026", read: "7 min", tag: "DATABASE",
-    excerpt: "A practical tour through composite, partial, and covering indexes from production query plans." },
-  { slug: "deploy-checklists-that-work", title: "The deploy checklist that stopped Friday surprises",
-    date: "Apr 24, 2026", read: "6 min", tag: "DEVOPS",
-    excerpt: "Small release habits that caught config drift, missing migrations, and broken rollbacks before users did." },
 ];
 function BlogPage({ navigate, resume }) {
   useReveal();
@@ -536,7 +536,7 @@ function BlogPage({ navigate, resume }) {
       </section>
 
       <section className="work-modules">
-        <div className="module glass-card feature span-12 tall">
+        <a href={"#/blog/" + BLOG_POSTS[0].slug} className="module glass-card feature span-12 tall">
           <div className="mod-tag" style={{color:"rgba(10,9,8,.7)"}}>FEATURED · {BLOG_POSTS[0].tag}</div>
           <h3 className="mod-title blog-featured-title" style={{fontSize: 56, color: "var(--bg)"}}>{BLOG_POSTS[0].title}</h3>
           <p className="mod-body" style={{fontSize: 16, maxWidth: "52ch", color:"rgba(10,9,8,.78)"}}>
@@ -557,7 +557,7 @@ function BlogPage({ navigate, resume }) {
               READ →
             </span>
           </div>
-        </div>
+        </a>
 
         {BLOG_POSTS.slice(1).map((p, i) => (
           <a key={p.slug} href={"#/blog/" + p.slug}
