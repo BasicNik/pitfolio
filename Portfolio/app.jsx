@@ -84,7 +84,7 @@ function App() {
   return (
     <React.Fragment>
       <StatusBar resume={resume} />
-      <AmbientBlobs />
+      {t.blobs && <AmbientBlobs />}
       <Navbar route={navRoute} navigate={navigate} resume={resume} />
       {t.showGrid && <GridLines />}
       <CursorBlob enabled={t.cursorBlob} />
